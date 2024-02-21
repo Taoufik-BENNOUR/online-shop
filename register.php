@@ -8,33 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-  <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">O-Shop</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Categories
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Category 1</a></li>
-              <li><a class="dropdown-item" href="#">Category 2</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Category 3</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-        </ul>
-          <a href="login.html"><button class="btn btn-outline-success">Login<i class="bi bi-box-arrow-in-right"></i></button></a>
-      </div>
-    </div>
-  </nav>
+<?php
+  include "navbar.php";
+  ?>
       <div class="d-flex justify-content-center mt-5">
         <form>
             <div class="form-outline mb-1">
@@ -61,7 +37,6 @@
               <input type="password" id="password" class="form-control" />
               <label class="form-label" for="password">Password</label>
             </div>
-          
             <div class="row mb-4">
               <div class="col d-flex justify-content-center">
                 <div class="form-check">
@@ -71,17 +46,14 @@
               </div>
           
               <div class="col">
-                <!-- Simple link -->
                 <a href="#!">Forgot password?</a>
               </div>
             </div>
           
-            <!-- Submit button -->
-            <button type="button" class="btn btn-primary btn-block mb-4">Sign up</button>
+            <button type="button" class="btn btn-success btn-block mb-4">Sign up</button>
           
-            <!-- Register buttons -->
             <div class="text-center">
-              <p>A member? <a href="login.html">Login</a></p>
+              <p>A member? <a href="login.php">Login</a></p>
             </div>
           </form>
       </div>
