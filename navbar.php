@@ -29,7 +29,13 @@ $categories = $stmt->fetchALL();
             <a class="nav-link" href="#">Link</a>
           </li>
         </ul>
-          <a href="login.php"><button class="btn btn-outline-success">Login<i class="bi bi-box-arrow-in-right"></i></button></a>
+        <div class="d-sm-none d-md-block me-auto col-md-4 col-sm">
+          <form class="d-flex" role="search" action="index.php" method="POST">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+           <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div>
+          <a class="col-1" href="login.php"><button class="btn btn-outline-success">Login<i class="bi bi-box-arrow-in-right"></i></button></a>
       </div>
     </div>
   </nav>

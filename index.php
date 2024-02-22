@@ -2,7 +2,11 @@
 require_once "pdo.php";
 require_once "./utils/fetchUtils.php";
 
-$products = getAllProducts();
+if(!empty($_POST)){
+  $products = searchProduct($_POST['search']);
+}else{
+  $products = getAllProducts();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,3 +1,12 @@
+<?php
+require_once "./utils/fetchUtils.php";
+
+if(!empty($_POST)){
+  addVisitor($_POST);
+  header("Location:register.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,30 +21,30 @@
   include "navbar.php";
   ?>
       <div class="d-flex justify-content-center mt-5">
-        <form>
+        <form action="register.php" method="POST">
             <div class="form-outline mb-1">
               <h1>Register</h1>
             </div>
             <div class="form-outline mb-1">
-              <input type="text" id="name" class="form-control" />
-              <label class="form-label" for="name">Name</label>
+              <label class="form-label" for="firstname">Firstname</label>
+              <input type="text" id="firstname" name="firstname" class="form-control" />
             </div>
             <div class="form-outline mb-1">
-              <input type="text" id="lastname" class="form-control" />
               <label class="form-label" for="lastname">Lastname</label>
+              <input type="text" id="lastname" name="lastname" class="form-control" />
             </div>
             <div class="form-outline mb-1">
-              <input type="text" id="phone" class="form-control" />
               <label class="form-label" for="phone">Phone number</label>
+              <input type="text" id="phone" name="phone" class="form-control" />
             </div>
             <div class="form-outline mb-1">
-              <input type="email" id="form2Example1" class="form-control" />
-              <label class="form-label" for="form2Example1">Email address</label>
+              <label class="form-label" for="email">Email address</label>
+              <input type="email" id="email" name="email" class="form-control" />
             </div>
           
             <div class="form-outline mb-1">
-              <input type="password" id="password" class="form-control" />
               <label class="form-label" for="password">Password</label>
+              <input type="password" id="password" name="password" class="form-control" />
             </div>
             <div class="row mb-4">
               <div class="col d-flex justify-content-center">
@@ -50,7 +59,7 @@
               </div>
             </div>
           
-            <button type="button" class="btn btn-success btn-block mb-4">Sign up</button>
+            <button type="submit" class="btn btn-success btn-block mb-4">Sign up</button>
           
             <div class="text-center">
               <p>A member? <a href="login.php">Login</a></p>
