@@ -56,12 +56,7 @@ function login($data){
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(":email"=>$data['email'],":password"=>$data['password']));
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($user !== false){
-        $_SESSION['user'] = $user;
-        return true;
-    } else {
-        return false;
-    }
+    return $user;
 }
 function getUsers(){
     $conn = connectToDatabase();

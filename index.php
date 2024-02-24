@@ -1,8 +1,8 @@
 <?php
 require_once "pdo.php";
 require_once "./utils/fetchUtils.php";
-
-if(!empty($_POST)){
+session_start();
+if(!empty($_POST['search'])){
   $products = searchProduct($_POST['search']);
 }else{
   $products = getAllProducts();
@@ -21,12 +21,12 @@ if(!empty($_POST)){
   <?php
   include "navbar.php";
   ?>
-  <div class="row col-12 mt-5"  style="margin:0 15%;">
+  <div class="row col-10 m-auto">
             <?php
         foreach($products as $product){
-         echo '<div class="col-3">
+         echo '<div class="col-4">
           <div class="card" style="width: 18rem;">
-              <img src="'.$product['image'].'" class="card-img-top" alt="...">
+              <img src="'.$product['image'].'" class="card-img-top" height="200" alt="...">
               <div class="card-body">
                 <h5 class="card-title">'.$product['name'].'</h5>
                 <p class="card-text">'.$product['description'].'</p>
@@ -37,27 +37,9 @@ if(!empty($_POST)){
 }
 ?>
   </div>
-<div class="position-fixed fixed-bottom">
-  <footer class="bg-dark text-center text-white">
-  <div class="container p-4 pb-0">
-    <section class="mb-4">
-      <a class="btn btn-outline-success  btn-floating m-1" href="#!" role="button">
-        <i class="bi bi-github"></i>
-      </a>
-      <a class="btn btn-outline-success  btn-floating m-1" href="#!" role="button">
-        <i class="bi bi-globe"></i>
-      </a>
-      <a class="btn btn-outline-success btn-floating m-1" href="#!" role="button">
-        <i class="bi bi-linkedin"></i>
-      </a>
-    </section>
-  </div>
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2024 Copyright:
-    <a class="text-white" href="https://taoufikbennour.com/" target="_blank">T.PHP</a>
-  </div>
-</footer>
-</div>
+  <?php
+  include "footer.php";
+  ?>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </html>

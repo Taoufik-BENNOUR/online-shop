@@ -1,6 +1,5 @@
 <?php
 require_once "./utils/fetchUtils.php";
-session_start();
 
 if(!empty($_POST)){
     if(register($_POST)){

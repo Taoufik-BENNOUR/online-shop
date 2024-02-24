@@ -1,8 +1,8 @@
 <?php
 require_once "pdo.php";
-
 $stmt=$conn->query("SELECT * FROM category");
 $categories = $stmt->fetchALL();
+
 ?>
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
     <div class="container-fluid">
@@ -35,7 +35,13 @@ $categories = $stmt->fetchALL();
            <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         </div>
-          <a class="col-1" href="login.php"><button class="btn btn-outline-success">Login<i class="bi bi-box-arrow-in-right"></i></button></a>
-      </div>
+        <?php 
+      if (isset($_SESSION['isAuth'])) {
+
+      } else {
+          echo "<a class='col-1' href='login.php'><button class='btn btn-outline-success'>Login<i class='bi bi-box-arrow-in-right'></i></button></a>";
+      }
+?>      </div>
     </div>
   </nav>
+  

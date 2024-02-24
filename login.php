@@ -1,15 +1,27 @@
 <?php
 require_once "./utils/fetchUtils.php";
 session_start();
+
+if(isset($_SESSION['isAuth'])){
+  header("location:profile.php");
+}
+
 if(!empty($_POST)){
-  if(login($_POST)) {
-    $_SESSION['error_message'] = "SUCCESS";
+  $user =login($_POST);
+  if($user){
+    $_SESSION["firstname"] = $user['firstname'];
+    $_SESSION["lastname"] = $user['lastname'];
+    $_SESSION["email"] = $user['email'];
+    $_SESSION["phone"]= $user['phone'];
+    $_SESSION["isAuth"] = true; 
+    header('location:profile.php');
   } else {
     $_SESSION['error_message'] = "Wrong email or password";
     header('Location:'.$_SERVER['PHP_SELF']);
     return;
   }
 }
+
 ?>
 
 <!DOCTYPE html>
