@@ -26,7 +26,6 @@ function getProductById($id){
     $sql = "SELECT * FROM product WHERE id=:id";
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(":id"=>$id));
-
     $product = $stmt->fetch();
     return $product;
 }
