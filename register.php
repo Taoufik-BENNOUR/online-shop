@@ -1,10 +1,15 @@
 <?php
 require_once "./utils/fetchUtils.php";
+session_start();
 
 if(!empty($_POST)){
-  addVisitor($_POST);
-  header("Location:register.php");
-}
+    if(register($_POST)){
+      $_SESSION['register_success']=true;
+      header('Location:'.$_SERVER['PHP_SELF']);
+      return;
+    }
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +24,15 @@ if(!empty($_POST)){
 <body>
 <?php
   include "navbar.php";
+  ?>
+  <?php
+  if(isset($_SESSION['register_success']) && $_SESSION['register_success']===true){
+    echo '<div class="position-fixed bottom-0 end-50 alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Register Success!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>';
+  unset($_SESSION['register_success']);
+  }
   ?>
       <div class="d-flex justify-content-center mt-5">
         <form action="register.php" method="POST">

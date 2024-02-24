@@ -1,3 +1,17 @@
+<?php
+require_once "./utils/fetchUtils.php";
+session_start();
+if(!empty($_POST)){
+  if(login($_POST)) {
+    $_SESSION['error_message'] = "SUCCESS";
+  } else {
+    $_SESSION['error_message'] = "Wrong email or password";
+    header('Location:'.$_SERVER['PHP_SELF']);
+    return;
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,18 +26,18 @@
   include "navbar.php";
   ?>
       <div class="d-flex justify-content-center mt-5">
-        <form>
+        <form action="login.php" method="POST">
             <div class="form-outline mb-1">
               <h1>Login</h1>
             </div>
             <div class="form-outline mb-1">
-              <input type="email" id="form2Example1" class="form-control" />
-              <label class="form-label" for="form2Example1">Email address</label>
+              <label class="form-label" for="email">Email address</label>
+              <input type="email" id="email" name="email" class="form-control" />
             </div>
           
             <div class="form-outline mb-1">
-              <input type="password" id="password" class="form-control" />
               <label class="form-label" for="password">Password</label>
+              <input type="password" id="password" name="password" class="form-control" />
             </div>
                       <div class="row mb-4">
               <div class="col d-flex justify-content-center">
@@ -36,7 +50,15 @@
                 <a href="#!">Forgot password?</a>
               </div>
             </div>
-            <button type="button" class="btn btn-success btn-block mb-4">Sign in</button>
+            <h6 class="text-danger">
+            <?php
+        if (isset($_SESSION['error_message']) ) {
+            echo $_SESSION['error_message'];
+            unset($_SESSION['error_message']);
+          }
+        ?>
+            </h6>
+            <button type="submit" class="btn btn-success btn-block mb-4">Sign in</button>
                       <div class="text-center">
               <p>Not a member? <a href="register.php">Register</a></p>
             </div>

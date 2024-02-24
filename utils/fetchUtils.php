@@ -21,6 +21,15 @@ function getAllProducts(){
 
     return $products;
 }
+function getProductById($id){
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM product WHERE id=:id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array(":id"=>$id));
+
+    $product = $stmt->fetch();
+    return $product;
+}
 
 function searchProduct($key){
     $conn = connectToDatabase();
@@ -32,15 +41,34 @@ function searchProduct($key){
     return $product;
 }
 
-function addVisitor($data){
+function register($data){
     $conn = connectToDatabase();
     $sql = "INSERT INTO visitor (firstname,lastname,email,password,phone) VALUES 
     (:firstname,:lastname,:email,:password,:phone)";
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(":firstname"=>$data['firstname'],":lastname"=>$data['lastname'],
-    ":email"=>$data['email'],":password"=>$data['password'],":phone"=>$data['phone']));
-
-    
+    ":email"=>$data['email'],":password"=>$data['password'],":phone"=>$data['phone'])); 
+    return true;
 }
 
+function login($data){
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM visitor WHERE email=:email AND password=:password";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array(":email"=>$data['email'],":password"=>$data['password']));
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($user !== false){
+        $_SESSION['user'] = $user;
+        return true;
+    } else {
+        return false;
+    }
+}
+function getUsers(){
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM visitor";
+    $stmt = $conn->query($sql);
+    $users = $stmt->fetchAll();
+    return $users;
+}
 ?>
