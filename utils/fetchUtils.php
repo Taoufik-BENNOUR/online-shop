@@ -46,7 +46,7 @@ function register($data){
     (:firstname,:lastname,:email,:password,:phone)";
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(":firstname"=>$data['firstname'],":lastname"=>$data['lastname'],
-    ":email"=>$data['email'],":password"=>$data['password'],":phone"=>$data['phone'])); 
+    ":email"=>$data['email'],":password"=>md5($data['password']),":phone"=>$data['phone'])); 
     return true;
 }
 
@@ -54,7 +54,7 @@ function login($data){
     $conn = connectToDatabase();
     $sql = "SELECT * FROM visitor WHERE email=:email AND password=:password";
     $stmt = $conn->prepare($sql);
-    $stmt->execute(array(":email"=>$data['email'],":password"=>$data['password']));
+    $stmt->execute(array(":email"=>$data['email'],":password"=>md5($data['password'])));
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     return $user;
 }

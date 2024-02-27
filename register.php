@@ -1,6 +1,6 @@
 <?php
 require_once "./utils/fetchUtils.php";
-
+session_start();
 if(!empty($_POST)){
     if(register($_POST)){
       $_SESSION['register_success']=true;
@@ -8,7 +8,6 @@ if(!empty($_POST)){
       return;
     }
   }
-
 ?>
 
 <!DOCTYPE html>
