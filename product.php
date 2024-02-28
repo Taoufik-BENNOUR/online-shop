@@ -1,6 +1,7 @@
 <?php
 require_once "pdo.php";
 require_once "./utils/fetchUtils.php";
+session_start();
 if(isset($_GET['productId'])){
     $product = getProductById($_GET['productId']);
     if($product==false){
