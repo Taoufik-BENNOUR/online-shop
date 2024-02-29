@@ -65,4 +65,15 @@ function getUsers(){
     $users = $stmt->fetchAll();
     return $users;
 }
+
+//admin
+function AdminLogin($data){
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM admin WHERE email=:email AND password=:password";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array(":email"=>$data['email'],":password"=>md5($data['password'])));
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
+
 ?>
