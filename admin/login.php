@@ -2,7 +2,7 @@
 require_once "../utils/fetchUtils.php";
 session_start();
 
-if(isset($_SESSION['isAuth'])){
+if(isset($_SESSION['isAdminAuth'])){
   header("location:profile.php");
 }
 
@@ -12,7 +12,7 @@ if(!empty($_POST)){
     $_SESSION["firstname"] = $user['firstname'];
     $_SESSION["lastname"] = $user['lastname'];
     $_SESSION["email"] = $user['email'];
-    $_SESSION["isAuth"] = true; 
+    $_SESSION["isAdminAuth"] = true; 
     header('location:profile.php');
   } else {
     $_SESSION['error_message'] = "Wrong email or password";
