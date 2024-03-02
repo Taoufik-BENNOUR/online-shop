@@ -76,4 +76,11 @@ function AdminLogin($data){
     return $user;
 }
 
+function getCatgories(){
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM categories";
+    $stmt = $conn->query($sql);
+    $categories = $stmt->fetchAll();
+    return $categories;
+}
 ?>

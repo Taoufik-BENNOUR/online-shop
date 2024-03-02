@@ -1,6 +1,6 @@
 <?php
 require_once "pdo.php";
-$stmt=$conn->query("SELECT * FROM category");
+$stmt=$conn->query("SELECT * FROM categories");
 $categories = $stmt->fetchALL();
 
 ?>
