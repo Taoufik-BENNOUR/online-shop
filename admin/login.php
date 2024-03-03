@@ -12,6 +12,7 @@ if(!empty($_POST)){
     $_SESSION["firstname"] = $user['firstname'];
     $_SESSION["lastname"] = $user['lastname'];
     $_SESSION["email"] = $user['email'];
+    $_SESSION["admin_id"] = $user['admin_id'];
     $_SESSION["isAdminAuth"] = true; 
     header('location:profile.php');
   } else {
@@ -20,7 +21,6 @@ if(!empty($_POST)){
     return;
   }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ if(!empty($_POST)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O-Shop</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
       <div class="bg-dark text-white d-flex justify-content-center align-items-center" style="height:100vh">

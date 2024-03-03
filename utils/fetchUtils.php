@@ -83,4 +83,19 @@ function getCatgories(){
     $categories = $stmt->fetchAll();
     return $categories;
 }
+
+function addCategory($category,$creatorId){
+    $conn = connectToDatabase();
+    $date = date("y-m-d");
+    $sql = "INSERT INTO categories (name,description,creator,createdAt) VALUES (:name,:description,:creator,:createdAt)";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(":name"=>$category['name'],"description"=>$category['description'],"creator"=>$creatorId,"createdAt"=>$date));
+}
+
+function deleteCatgory($categoryId){
+    $conn = connectToDatabase();
+    $sql = "DELETE FROM categories WHERE category_id=:category_id";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(":category_id"=>$categoryId));
+}
 ?>
