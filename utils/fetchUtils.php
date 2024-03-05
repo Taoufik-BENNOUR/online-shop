@@ -98,4 +98,11 @@ function deleteCatgory($categoryId){
     $stmt=$conn->prepare($sql);
     $stmt->execute(array(":category_id"=>$categoryId));
 }
+function updateCategory($category){
+    $conn = connectToDatabase();
+    $updateDate = date("y-m-d");
+    $sql = "UPDATE categories SET name=:name,description=:description,updatedAt=:updatedAt WHERE category_id=:category_id";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(":category_id"=>$category['categoryId'],":name"=>$category['name'],":description"=>$category['description'],":updatedAt"=>$updateDate));
+}
 ?>
