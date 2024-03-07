@@ -135,4 +135,11 @@ function uploadImage($file,$target_file){
         return false;
       }
 }
+
+function deleteProduct($productId){
+    $conn = connectToDatabase();
+    $sql = "DELETE FROM product WHERE id=:product_id";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(":product_id"=>$productId));
+}
 ?>

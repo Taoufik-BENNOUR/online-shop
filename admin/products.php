@@ -19,10 +19,10 @@ if(isset($_POST['add_product'])&&isset($_POST['name'])){
 //     header("location:".$_SERVER['PHP_SELF']);
 // }
 
-// if(isset($_POST['delete_category'])&&isset($_POST['product'])){
-//     deleteCatgory($_POST['product']);
-//     header("location:".$_SERVER['PHP_SELF']);
-// }
+if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
+    deleteProduct($_POST['productId']);
+    header("location:".$_SERVER['PHP_SELF']);
+}
 ?>
 
 <html lang="en">
@@ -80,9 +80,9 @@ if(isset($_POST['add_product'])&&isset($_POST['name'])){
          data-product-price="<?= $product['price']; ?>"
          >Edit</a>
          <div style="display: inline-block;">
-        <form action="" method="post" style="margin: 0; padding: 0;">
-            <input type="hidden" value="<?= $product['id']; ?>" name="product" />
-            <button class="btn btn-danger" type="submit" name="delete_category">Delete</button>
+        <form method="post" style="margin: 0; padding: 0;">
+            <input type="hidden" value="<?= $product['id']; ?>" name="productId" />
+            <button class="btn btn-danger" type="submit" name="delete_product">Delete</button>
         </form>
     </div>
       </td>
