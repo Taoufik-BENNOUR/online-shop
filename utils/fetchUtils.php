@@ -105,12 +105,34 @@ function updateCategory($category){
     $stmt=$conn->prepare($sql);
     $stmt->execute(array(":category_id"=>$category['categoryId'],":name"=>$category['name'],":description"=>$category['description'],":updatedAt"=>$updateDate));
 }
-function addProduct($product,$creatorId){
+function addProduct($product,$creatorId,$file,$target_file){
     $conn = connectToDatabase();
     $date = date("y-m-d");
-    $sql = "INSERT INTO product (name,description,price,category,creator,createdAt) VALUES (:name,:description,:price,:category,:creator,:createdAt)";
-    $stmt=$conn->prepare($sql);
-    $stmt->execute(array(":name"=>$product['name'],"description"=>$product['description'],
-    "price"=>$product['price'],"category"=>$product['category'],"creator"=>$creatorId,"createdAt"=>$date));
+
+    if(uploadImage($file,$target_file)){
+        $sql = "INSERT INTO product (name,description,price,category,image,creator,createdAt) VALUES (:name,:description,:price,:category,:image,:creator,:createdAt)";
+        $stmt=$conn->prepare($sql);
+        $stmt->execute(array(":name"=>$product['name'],
+            "description"=>$product['description'],
+            "price"=>$product['price'],
+            "category"=>$product['category'],
+            "image"=>$file["name"],
+            "creator"=>$creatorId,
+            "createdAt"=>$date)); 
+            return true;
+    }else{
+        return false;
+    }
+
+
+}
+function uploadImage($file,$target_file){
+    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+        echo "The file ". htmlspecialchars( basename($file['name'])). " has been uploaded.";
+        return true;
+      } else {
+        echo "Sorry, there was an error uploading your file.";
+        return false;
+      }
 }
 ?>

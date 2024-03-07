@@ -17,20 +17,20 @@ if(!empty($_POST['search'])){
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
   <?php
   include "navbar.php";
   ?>
-  <div class="row col-10 m-auto">
+  <div class="d-flex flex-wrap col-10 m-auto">
             <?php
         foreach($products as $product){
-         echo '<div class="col-4">
-          <div class="card" style="width: 18rem;">
-              <img src="'.$product['image'].'" class="card-img-top" height="200" alt="...">
-              <div class="card-body">
+         echo '<div class="col-3 mt-3">
+          <div class="card" style="width: 18rem;height: 100%">
+              <img src="admin/uploads/'.$product['image'].'" class="card-img-top" height="150" alt="...">
+              <div class="card-body d-flex flex-column">
                 <h5 class="card-title">'.$product['name'].'</h5>
-                <p class="card-text">'.$product['description'].'</p>
-                <a href="product.php?productId='.$product['id'].'" class="btn btn-success">Go somewhere</a>
+                <p class="card-text 4">'.$product['description'].'</p>
+                <a href="product.php?productId='.$product['id'].'" class="btn btn-success align-self-start mt-auto">Go somewhere</a>
               </div>
             </div>
       </div>';

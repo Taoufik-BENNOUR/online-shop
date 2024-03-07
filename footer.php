@@ -1,4 +1,4 @@
-<div class="position-fixed fixed-bottom">
+<div>
   <footer class="bg-dark text-center text-white">
   <div class="container p-4 pb-0">
     <section class="mb-4">

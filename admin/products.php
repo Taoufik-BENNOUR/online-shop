@@ -4,20 +4,25 @@ session_start();
 
 $products = getAllProducts();
 $categories = getCategories();
+
+$target_dir = "uploads/";
+$file =isset($_FILES["image"])? $_FILES["image"]:"";
+$target_file = isset($_FILES["image"])? $target_dir . basename($_FILES["image"]["name"]):"";
+
 $error=false;
 if(isset($_POST['add_product'])&&isset($_POST['name'])){
- addProduct($_POST,$_SESSION['admin_id']);
+ addProduct($_POST,$_SESSION['admin_id'],$file,$target_file);
     header("location:".$_SERVER['PHP_SELF']);
 }
-if(isset($_POST['edit'])&&isset($_POST['name'])){
-    updateCategory($_POST);
-    header("location:".$_SERVER['PHP_SELF']);
-}
+// if(isset($_POST['edit'])&&isset($_POST['name'])){
+//     updateCategory($_POST);
+//     header("location:".$_SERVER['PHP_SELF']);
+// }
 
-if(isset($_POST['delete_category'])&&isset($_POST['product'])){
-    deleteCatgory($_POST['product']);
-    header("location:".$_SERVER['PHP_SELF']);
-}
+// if(isset($_POST['delete_category'])&&isset($_POST['product'])){
+//     deleteCatgory($_POST['product']);
+//     header("location:".$_SERVER['PHP_SELF']);
+// }
 ?>
 
 <html lang="en">
@@ -99,7 +104,7 @@ if(isset($_POST['delete_category'])&&isset($_POST['product'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name" class="form-label">Product name</label>
                 <input name="name" type="text" class="form-control" id="name" placeholder="product name..." required>
