@@ -76,7 +76,7 @@ function AdminLogin($data){
     return $user;
 }
 
-function getCatgories(){
+function getCategories(){
     $conn = connectToDatabase();
     $sql = "SELECT * FROM categories";
     $stmt = $conn->query($sql);
@@ -104,5 +104,13 @@ function updateCategory($category){
     $sql = "UPDATE categories SET name=:name,description=:description,updatedAt=:updatedAt WHERE category_id=:category_id";
     $stmt=$conn->prepare($sql);
     $stmt->execute(array(":category_id"=>$category['categoryId'],":name"=>$category['name'],":description"=>$category['description'],":updatedAt"=>$updateDate));
+}
+function addProduct($product,$creatorId){
+    $conn = connectToDatabase();
+    $date = date("y-m-d");
+    $sql = "INSERT INTO product (name,description,price,category,creator,createdAt) VALUES (:name,:description,:price,:category,:creator,:createdAt)";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(":name"=>$product['name'],"description"=>$product['description'],
+    "price"=>$product['price'],"category"=>$product['category'],"creator"=>$creatorId,"createdAt"=>$date));
 }
 ?>

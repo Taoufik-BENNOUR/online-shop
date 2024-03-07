@@ -19,7 +19,7 @@ if(!isset($_SESSION['isAdminAuth'])){
         <div class="bg-light text-dark col">
         <h1 class="text-center bg-dark text-danger py-2"><>Profile&lt/></h1>
             <div class="d-flex">
-                <div class="col-md border-right">
+                <div class="col-md-5 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                     <span class="font-weight-bold"><?= $_SESSION['firstname']; ?></span>
                     <span class="text-white-50"><?= $_SESSION['email']; ?></span>

@@ -2,23 +2,20 @@
 include "../utils/fetchUtils.php";
 session_start();
 
+$products = getAllProducts();
 $categories = getCategories();
 $error=false;
-if(isset($_POST['add'])&&isset($_POST['name'])){
-   try {
- addCategory($_POST,$_SESSION['admin_id']);
+if(isset($_POST['add_product'])&&isset($_POST['name'])){
+ addProduct($_POST,$_SESSION['admin_id']);
     header("location:".$_SERVER['PHP_SELF']);
-   } catch (\Throwable $th) {
-    $error = true;
-   }
 }
 if(isset($_POST['edit'])&&isset($_POST['name'])){
     updateCategory($_POST);
     header("location:".$_SERVER['PHP_SELF']);
 }
 
-if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
-    deleteCatgory($_POST['categoryId']);
+if(isset($_POST['delete_category'])&&isset($_POST['product'])){
+    deleteCatgory($_POST['product']);
     header("location:".$_SERVER['PHP_SELF']);
 }
 ?>
@@ -29,7 +26,7 @@ if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Products list</title>
 </head>
 <body>
 <?php
@@ -43,13 +40,15 @@ if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
     <div class="d-flex flex-nowrap">
             <?php include "sidebar.php"; ?>
         <div class="col">
-            <h1 class="text-center bg-dark text-danger py-2">Categories</h1>
+            <h1 class="text-center bg-dark text-danger py-2">Products</h1>
         <table class="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Category</th>
                     <th scope="col">CreatedAt</th>
                     <th scope="col">UpdatedAt</th>
                     <th scope="col">Action</th>
@@ -58,23 +57,26 @@ if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
                 </thead>
                 <tbody>
         <?php
-        foreach ($categories as $key=> $category) {
+        foreach ($products as $key=> $product) {
             ?>
         <tr>
       <th scope="row"><?= $key; ?></th>
-      <td><?= $category['name']; ?></td>
-      <td><?= $category['description']; ?></td>      
-      <td><?= $category['createdAt']; ?></td>      
-      <td><?= $category['updatedAt']; ?></td>      
+      <td><?= $product['name']; ?></td>
+      <td><?= $product['description']; ?></td>      
+      <td><?= $product['price']; ?></td>      
+      <td><?= $product['category']; ?></td>      
+      <td><?= $product['createdAt']; ?></td>      
+      <td><?= $product['updatedAt']; ?></td>      
        <td>
          <a href="" class="btn btn-success edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
-         data-category-id="<?= $category['category_id']; ?>"
-         data-category-name="<?= $category['name']; ?>"
-         data-category-description="<?= $category['description']; ?>"
+         data-product-id="<?= $product['id']; ?>"
+         data-product-name="<?= $product['name']; ?>"
+         data-product-description="<?= $product['description']; ?>"
+         data-product-price="<?= $product['price']; ?>"
          >Edit</a>
          <div style="display: inline-block;">
         <form action="" method="post" style="margin: 0; padding: 0;">
-            <input type="hidden" value="<?= $category['category_id']; ?>" name="categoryId" />
+            <input type="hidden" value="<?= $product['id']; ?>" name="product" />
             <button class="btn btn-danger" type="submit" name="delete_category">Delete</button>
         </form>
     </div>
@@ -93,23 +95,41 @@ if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form method="post">
             <div class="mb-3">
-                <label for="name" class="form-label">Category name</label>
-                <input name="name" type="text" class="form-control" id="name" placeholder="category name..." required>
+                <label for="name" class="form-label">Product name</label>
+                <input name="name" type="text" class="form-control" id="name" placeholder="product name..." required>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="description" class="form-control" id="description" placeholder="category description..." required></textarea>
+                <textarea name="description" class="form-control" id="description" placeholder="product description..." required></textarea>
             </div>            
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input name="price" type="number" class="form-control" id="price" placeholder="product price..." required>
+            </div>   
+            <div class="mb-3">
+                <select class="form-select" name="category" id="category">
+                    <?php
+                    foreach($categories as $category){
+                        ?>
+                        <option><?= $category['name'] ;?></option>
+                    <?php
+                    };
+                    ?>
+                </select>
+            </div>           
+            <div class="mb-3">
+                <input name="image" type="file" class="form-control" id="image">
+            </div>                      
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" name="add">Save</button>
+            <button type="submit" class="btn btn-primary" name="add_product">Save</button>
         </div>
     </form>
     </div>
@@ -128,7 +148,7 @@ if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
             <div class="mb-3">
                 <label for="name" class="form-label">Category name</label>
                 <input name="name" type="text" class="form-control" id="editName" placeholder="category name...">
-                <input name="categoryId" type="hidden" class="form-control" id="editId" placeholder="category name...">
+                <input name="product" type="hidden" class="form-control" id="editId" placeholder="category name...">
                 <p><?= $error; ?></p>
             </div>
             <div class="mb-3">
@@ -149,12 +169,12 @@ if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
         var editButtons = document.querySelectorAll('.edit-btn');
         editButtons.forEach(function (button) {
             button.addEventListener('click', function () {
-                var categoryId = button.getAttribute('data-category-id');
-                var categoryName = button.getAttribute('data-category-name');
-                var categoryDescription = button.getAttribute('data-category-description');
-                document.getElementById('editName').value = categoryName;
-                document.getElementById('editId').value = categoryId;
-                document.getElementById('editDescription').value = categoryDescription;
+                var productId = button.getAttribute('data-product-id');
+                var productName = button.getAttribute('data-product-name');
+                var productDescription = button.getAttribute('data-product-description');
+                document.getElementById('editName').value = productName;
+                document.getElementById('editId').value = productId;
+                document.getElementById('editDescription').value = productDescription;
             });
         });
     });

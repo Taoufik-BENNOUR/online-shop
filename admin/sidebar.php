@@ -19,8 +19,8 @@
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Categories</span></a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle text-white <?php echo basename($_SERVER['PHP_SELF']) == 'customers.php' ? 'activePage' : ''; ?>">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                        <a href="products.php" class="nav-link px-0 align-middle text-white <?php echo basename($_SERVER['PHP_SELF']) == 'products.php' ? 'activePage' : ''; ?>">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
                     </li>
                 </ul>
          </div>
