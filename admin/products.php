@@ -14,10 +14,10 @@ if(isset($_POST['add_product'])&&isset($_POST['name'])){
  addProduct($_POST,$_SESSION['admin_id'],$file,$target_file);
     header("location:".$_SERVER['PHP_SELF']);
 }
-// if(isset($_POST['edit'])&&isset($_POST['name'])){
-//     updateCategory($_POST);
-//     header("location:".$_SERVER['PHP_SELF']);
-// }
+if(isset($_POST['edit-product'])){
+    updateProduct($_POST);
+    header("location:".$_SERVER['PHP_SELF']);
+}
 
 if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
     deleteProduct($_POST['productId']);
@@ -78,6 +78,7 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
          data-product-name="<?= $product['name']; ?>"
          data-product-description="<?= $product['description']; ?>"
          data-product-price="<?= $product['price']; ?>"
+         data-product-category="<?= $product['category']; ?>"
          >Edit</a>
          <div style="display: inline-block;">
         <form method="post" style="margin: 0; padding: 0;">
@@ -152,19 +153,34 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
         <form method="post">
             <div class="mb-3">
                 <label for="name" class="form-label">Category name</label>
-                <input name="name" type="text" class="form-control" id="editName" placeholder="category name...">
-                <input name="product" type="hidden" class="form-control" id="editId" placeholder="category name...">
+                <input name="product-name" type="text" class="form-control" id="product-name" placeholder="product name...">
+                <input name="product-id" type="hidden" class="form-control" id="product-id">
                 <p><?= $error; ?></p>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="description" class="form-control" id="editDescription" placeholder="category description..."></textarea>
+                <textarea name="product-description" class="form-control" id="product-description" placeholder="product description..."></textarea>
             </div>            
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" name="product-price" class="form-control" id="product-price" placeholder="product price..."></input>
+            </div>  
+            <div class="mb-3">
+                <select class="form-select" name="product-category" id="product-category">
+                    <?php
+                    foreach($categories as $category){
+                        ?>
+                <option><?= $category['name']; ?></option>
+                    <?php
+                    };
+                    ?>
+                </select>
+            </div>           
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" name="edit">Save</button>
-        </div>
+            <button type="submit" class="btn btn-primary" name="edit-product">Save</button>
+        </div>  
     </form>
     </div>
   </div>
@@ -177,9 +193,13 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
                 var productId = button.getAttribute('data-product-id');
                 var productName = button.getAttribute('data-product-name');
                 var productDescription = button.getAttribute('data-product-description');
-                document.getElementById('editName').value = productName;
-                document.getElementById('editId').value = productId;
-                document.getElementById('editDescription').value = productDescription;
+                var productPrice = button.getAttribute('data-product-price');
+                var productCategory = button.getAttribute('data-product-category');
+                document.getElementById('product-id').value = productId;
+                document.getElementById('product-name').value = productName;
+                document.getElementById('product-description').value = productDescription;
+                document.getElementById('product-price').value = productPrice;
+                document.getElementById('product-category').value = productCategory;
             });
         });
     });

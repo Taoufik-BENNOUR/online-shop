@@ -142,4 +142,18 @@ function deleteProduct($productId){
     $stmt=$conn->prepare($sql);
     $stmt->execute(array(":product_id"=>$productId));
 }
+
+function updateProduct($product){
+    $conn = connectToDatabase();
+    $updateDate = date("y-m-d");
+    $sql = "UPDATE product SET name=:name,description=:description,price=:price,category=:category,updatedAt=:updatedAt WHERE id=:product_id";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(
+        ":product_id"=>$product['product-id'],
+        ":name"=>$product['product-name'],
+        "description"=>$product['product-description'],
+        "price"=>$product['product-price'],
+        "category"=>$product['product-category'],
+        "updatedAt"=>$updateDate)); 
+}
 ?>
