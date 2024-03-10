@@ -44,7 +44,10 @@ if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
             <?php include "sidebar.php"; ?>
         <div class="col">
             <h1 class="text-center bg-dark text-danger py-2">Categories</h1>
-        <table class="table">
+            <div class="d-flex px-5">
+                <span class="btn btn-primary" style="margin-left:auto" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</span>
+            </div>
+            <table class="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -53,7 +56,6 @@ if(isset($_POST['delete_category'])&&isset($_POST['categoryId'])){
                     <th scope="col">CreatedAt</th>
                     <th scope="col">UpdatedAt</th>
                     <th scope="col">Action</th>
-                    <th><span class="btn btn-primary" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</span></th>
                     </tr>
                 </thead>
                 <tbody>

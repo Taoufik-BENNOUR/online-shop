@@ -22,6 +22,10 @@
                         <a href="products.php" class="nav-link px-0 align-middle text-white <?php echo basename($_SERVER['PHP_SELF']) == 'products.php' ? 'activePage' : ''; ?>">
                             <i class="bi bi-bag"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
                     </li>
+                    <li>
+                        <a href="users.php" class="nav-link px-0 align-middle text-white <?php echo basename($_SERVER['PHP_SELF']) == 'users.php' ? 'activePage' : ''; ?>">
+                            <i class="bi bi-people"></i> <span class="ms-1 d-none d-sm-inline">Users</span> </a>
+                    </li>
                 </ul>
          </div>
 </div>

@@ -46,7 +46,10 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
             <?php include "sidebar.php"; ?>
         <div class="col">
             <h1 class="text-center bg-dark text-danger py-2">Products</h1>
-        <table class="table">
+            <div class="d-flex px-5">
+                <span class="btn btn-primary" style="margin-left:auto" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</span>
+            </div>
+            <table class="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -57,7 +60,6 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
                     <th scope="col">CreatedAt</th>
                     <th scope="col">UpdatedAt</th>
                     <th scope="col">Action</th>
-                    <th><span class="btn btn-primary" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,7 +85,7 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
          <div style="display: inline-block;">
         <form method="post" style="margin: 0; padding: 0;">
             <input type="hidden" value="<?= $product['id']; ?>" name="productId" />
-            <button class="btn btn-danger" type="submit" name="delete_product">Delete</button>
+            <button onclick="return confirmDeletion()" class="btn btn-danger" type="submit" name="delete_product">Delete</button>
         </form>
     </div>
       </td>
@@ -220,6 +222,9 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
       }, false)
     })
 })()
+function confirmDeletion(){
+    return confirm("Confirm deletion");
+}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

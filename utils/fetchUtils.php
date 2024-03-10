@@ -42,11 +42,17 @@ function searchProduct($key){
 
 function register($data){
     $conn = connectToDatabase();
-    $sql = "INSERT INTO visitor (firstname,lastname,email,password,phone) VALUES 
-    (:firstname,:lastname,:email,:password,:phone)";
+    $creationDate=Date("y-m-d");
+    $sql = "INSERT INTO visitor (firstname,lastname,email,password,phone,createdAt) VALUES 
+    (:firstname,:lastname,:email,:password,:phone,:createdAt)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute(array(":firstname"=>$data['firstname'],":lastname"=>$data['lastname'],
-    ":email"=>$data['email'],":password"=>md5($data['password']),":phone"=>$data['phone'])); 
+    $stmt->execute(array(
+    ":firstname"=>$data['firstname'],
+    ":lastname"=>$data['lastname'],
+    ":email"=>$data['email'],
+    ":password"=>md5($data['password']),
+    ":phone"=>$data['phone'],
+    ":createdAt"=>$creationDate)); 
     return true;
 }
 
@@ -60,7 +66,7 @@ function login($data){
 }
 function getUsers(){
     $conn = connectToDatabase();
-    $sql = "SELECT * FROM visitor";
+    $sql = "SELECT * FROM visitor ORDER BY state ASC";
     $stmt = $conn->query($sql);
     $users = $stmt->fetchAll();
     return $users;
@@ -155,5 +161,17 @@ function updateProduct($product){
         "price"=>$product['product-price'],
         "category"=>$product['product-category'],
         "updatedAt"=>$updateDate)); 
+}
+
+function validateUser($userId){
+    $conn=connectToDatabase();
+    $updateDate = date("y-m-d");
+    $sql = "UPDATE visitor SET state=:state,updatedAt=:updatedAt WHERE visitor_id=:visitor_id";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(
+        ":visitor_id"=>$userId,
+        ":state"=>1,
+        ":updatedAt"=>$updateDate
+    ));
 }
 ?>
