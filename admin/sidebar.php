@@ -26,6 +26,10 @@
                         <a href="users.php" class="nav-link px-0 align-middle text-white <?php echo basename($_SERVER['PHP_SELF']) == 'users.php' ? 'activePage' : ''; ?>">
                             <i class="bi bi-people"></i> <span class="ms-1 d-none d-sm-inline">Users</span> </a>
                     </li>
+                    <li>
+                        <a href="stock.php" class="nav-link px-0 align-middle text-white <?php echo basename($_SERVER['PHP_SELF']) == 'stock.php' ? 'activePage' : ''; ?>">
+                            <i class="bi bi-boxes"></i> <span class="ms-1 d-none d-sm-inline">Stock</span> </a>
+                    </li>
                 </ul>
          </div>
 </div>

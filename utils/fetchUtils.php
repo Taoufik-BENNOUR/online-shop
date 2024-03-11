@@ -185,4 +185,12 @@ function validateUser($userId){
         ":updatedAt"=>$updateDate
     ));
 }
+
+function getStock(){
+    $conn=connectToDatabase();
+    $sql = "SELECT * FROM stock";
+    $stmt=$conn->query($sql);
+    $stocks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stocks;
+}
 ?>
