@@ -117,19 +117,30 @@ function addProduct($product,$creatorId,$file,$target_file){
 
     if(uploadImage($file,$target_file)){
         $sql = "INSERT INTO product (name,description,price,category,image,creator,createdAt) VALUES (:name,:description,:price,:category,:image,:creator,:createdAt)";
+       
         $stmt=$conn->prepare($sql);
-        $stmt->execute(array(":name"=>$product['name'],
-            "description"=>$product['description'],
-            "price"=>$product['price'],
-            "category"=>$product['category'],
-            "image"=>$file["name"],
-            "creator"=>$creatorId,
-            "createdAt"=>$date)); 
-            return true;
+        $success=$stmt->execute(array(":name"=>$product['name'],
+            ":description"=>$product['description'],
+            ":price"=>$product['price'],
+            ":category"=>$product['category'],
+            ":image"=>$file["name"],
+            ":creator"=>$creatorId,
+            ":createdAt"=>$date)); 
+
+        if($success){
+            $productId=$conn->lastInsertId();
+            $sql2 = "INSERT INTO stock (product_id,quantity,creator,createdAt) VALUES (:product_id,:quantity,:creator,:createdAt)";
+            $stmt=$conn->prepare($sql2);
+            $stmt->execute(array(
+                ":product_id"=>$productId,
+                ":quantity"=>$product['quantity'],
+                ":creator"=>$creatorId,
+                ":createdAt"=>$date)); 
+        }
+        return true;
     }else{
         return false;
     }
-
 
 }
 function uploadImage($file,$target_file){
@@ -157,10 +168,10 @@ function updateProduct($product){
     $stmt->execute(array(
         ":product_id"=>$product['product-id'],
         ":name"=>$product['product-name'],
-        "description"=>$product['product-description'],
-        "price"=>$product['product-price'],
-        "category"=>$product['product-category'],
-        "updatedAt"=>$updateDate)); 
+        ":description"=>$product['product-description'],
+        ":price"=>$product['product-price'],
+        ":category"=>$product['product-category'],
+        ":updatedAt"=>$updateDate)); 
 }
 
 function validateUser($userId){

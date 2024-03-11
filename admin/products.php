@@ -108,19 +108,23 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
       </div>
       <div class="modal-body">
         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="name" class="form-label">Product name</label>
                 <input name="name" type="text" class="form-control" id="name" placeholder="product name..." required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="description" class="form-label">Description</label>
                 <textarea name="description" class="form-control" id="description" placeholder="product description..." required></textarea>
             </div>            
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="price" class="form-label">Price</label>
                 <input name="price" type="number" class="form-control" id="price" placeholder="product price..." required>
             </div>   
-            <div class="mb-3">
+            <div class="mb-2">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input name="quantity" type="number" class="form-control" id="quantity" placeholder="product quantity..." required>
+            </div>   
+            <div class="mb-2">
                 <select class="form-select" name="category" id="category">
                     <?php
                     foreach($categories as $category){
@@ -131,7 +135,7 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
                     ?>
                 </select>
             </div>           
-            <div class="mb-3">
+            <div class="mb-2">
                 <input name="image" type="file" class="form-control" id="image">
             </div>                      
         </div>
