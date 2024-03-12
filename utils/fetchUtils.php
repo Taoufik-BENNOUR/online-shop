@@ -195,11 +195,13 @@ function getStock(){
 }
 function updateStock($stock){
     $conn=connectToDatabase();
-    $sql = "UPDATE stock SET quantity=:quantity WHERE stock_id=:stock_id";
+    $updateDate = date("y-m-d");
+    $sql = "UPDATE stock SET quantity=:quantity,updatedAt=:updatedAt WHERE stock_id=:stock_id";
     $stmt=$conn->prepare($sql);
     $stmt->execute(array(
         ':quantity'=>$stock['stock_quantity'],
-        ':stock_id'=>$stock['stock_id']
+        ':stock_id'=>$stock['stock_id'],
+        ':updatedAt'=>$stock['updatedAt']
     ));
 }
 ?>

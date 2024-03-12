@@ -9,7 +9,9 @@ if(isset($_GET['productId'])){
     }
 }
 
-
+if(isset($_POST['command'])){
+var_dump($_POST);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +22,7 @@ if(isset($_GET['productId'])){
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
 <?php
   include "navbar.php";
   ?>
@@ -33,7 +35,13 @@ if(isset($_GET['productId'])){
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Price : <?= $product['price']; ?></li>
     <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
+    <li class="list-group-item">
+    <form class="d-flex justify-content-end" action="actions/command.php" method="post">
+        <input class="col-3 mx-2" type="number" name="quantity" min='0'>
+        <input  type="hidden" name="product_id" value="<?= $product['id']; ?>">
+        <button type="submit" class="btn btn-primary" name="command">Command</button>
+    </form>  
+  </li>
   </ul>
 </div>
 <?php
