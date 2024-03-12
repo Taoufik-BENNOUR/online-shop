@@ -188,9 +188,18 @@ function validateUser($userId){
 
 function getStock(){
     $conn=connectToDatabase();
-    $sql = "SELECT * FROM stock";
+    $sql = "SELECT stock_id,name,quantity,stock.creator,stock.createdAt as stockCreatedAt,stock.updatedAt as stockUpdatedAt FROM product,stock WHERE product.id=stock.product_id";
     $stmt=$conn->query($sql);
     $stocks = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $stocks;
+}
+function updateStock($stock){
+    $conn=connectToDatabase();
+    $sql = "UPDATE stock SET quantity=:quantity WHERE stock_id=:stock_id";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(
+        ':quantity'=>$stock['stock_quantity'],
+        ':stock_id'=>$stock['stock_id']
+    ));
 }
 ?>
