@@ -13,6 +13,7 @@ if(!empty($_POST)){
     $_SESSION["lastname"] = $user['lastname'];
     $_SESSION["email"] = $user['email'];
     $_SESSION["phone"]= $user['phone'];
+    $_SESSION["user_id"]= $user['user_id'];
     $_SESSION["isAuth"] = true; 
     header('location:profile.php');
   } else {
