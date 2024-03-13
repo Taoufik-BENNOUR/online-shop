@@ -1,6 +1,10 @@
 <?php
 include "../utils/fetchUtils.php";
-
+session_start();
+if(!isset($_SESSION['isAuth'])){
+    header("location:../login.php");
+    return;
+  }
 $conn = connectToDatabase();
 $sql = "SELECT price FROM product WHERE id=:id";
 $stmt = $conn->prepare($sql);

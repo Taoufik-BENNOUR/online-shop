@@ -43,7 +43,7 @@ function searchProduct($key){
 function register($data){
     $conn = connectToDatabase();
     $creationDate=Date("y-m-d");
-    $sql = "INSERT INTO visitor (firstname,lastname,email,password,phone,createdAt) VALUES 
+    $sql = "INSERT INTO users (firstname,lastname,email,password,phone,createdAt) VALUES 
     (:firstname,:lastname,:email,:password,:phone,:createdAt)";
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(
@@ -58,7 +58,7 @@ function register($data){
 
 function login($data){
     $conn = connectToDatabase();
-    $sql = "SELECT * FROM visitor WHERE email=:email AND password=:password";
+    $sql = "SELECT * FROM users WHERE email=:email AND password=:password";
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(":email"=>$data['email'],":password"=>md5($data['password'])));
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -66,7 +66,7 @@ function login($data){
 }
 function getUsers(){
     $conn = connectToDatabase();
-    $sql = "SELECT * FROM visitor ORDER BY state ASC";
+    $sql = "SELECT * FROM users ORDER BY state ASC";
     $stmt = $conn->query($sql);
     $users = $stmt->fetchAll();
     return $users;
@@ -177,10 +177,10 @@ function updateProduct($product){
 function validateUser($userId){
     $conn=connectToDatabase();
     $updateDate = date("y-m-d");
-    $sql = "UPDATE visitor SET state=:state,updatedAt=:updatedAt WHERE visitor_id=:visitor_id";
+    $sql = "UPDATE users SET state=:state,updatedAt=:updatedAt WHERE user_id=:user_id";
     $stmt=$conn->prepare($sql);
     $stmt->execute(array(
-        ":visitor_id"=>$userId,
+        ":user_id"=>$userId,
         ":state"=>1,
         ":updatedAt"=>$updateDate
     ));

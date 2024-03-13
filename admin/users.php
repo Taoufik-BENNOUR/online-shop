@@ -1,8 +1,8 @@
 <?php
 require "../utils/fetchUtils.php";
 $users = getUsers();
-if(isset($_POST['validate'])&&isset($_POST['visitor_id'])){
-    validateUser($_POST['visitor_id']);
+if(isset($_POST['validate'])&&isset($_POST['user_id'])){
+    validateUser($_POST['user_id']);
     header("location:".$_SERVER['PHP_SELF']);
 }
 ?>
@@ -48,7 +48,7 @@ if(isset($_POST['validate'])&&isset($_POST['visitor_id'])){
       <td>
          <div style="display: inline-block;">
         <form method="post" style="margin: 0; padding: 0;">
-            <input type="hidden" value="<?= $user['visitor_id']; ?>" name="visitor_id" />
+            <input type="hidden" value="<?= $user['user_id']; ?>" name="user_id" />
             <button class="btn <?= $user['state']===1?"btn-success":"btn-danger"; ?>" type="submit" name="validate"  
             <?= $user['state']===0?"":"disabled"; ?>
             >Validate</button>
