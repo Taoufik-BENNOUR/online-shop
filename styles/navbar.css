@@ -1,8 +1,16 @@
+.profile{
+    margin-right: 10px;
+}
+.options{
+    z-index: 999 !important;
+
+}
 .profile .options{
     display: none;
     color: #198754;
     position: relative;
     background-color:rgb(33 37 41) !important;
+
 }
 .icon:hover {
      cursor: pointer;

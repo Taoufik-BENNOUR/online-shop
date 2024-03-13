@@ -9,6 +9,7 @@ $categories = $stmt->fetchALL();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./styles/navbar.css">
 </head>
 <body>
@@ -51,11 +52,14 @@ $categories = $stmt->fetchALL();
          <a href='profile.php'><span>Profile</span></a>
          <a href='logout.php'><span>Logout</span></a>
          </div>
-        </div>";
+        </div>
+        <a href='basket'><i class='fa fa-basket-shopping' style='color:white;'></i></a>
+        ";
       } else {
           echo "<a class='col-1' href='login.php'><button class='btn btn-outline-success'>Login<i class='bi bi-box-arrow-in-right'></i></button></a>";
       }
-?>      </div>
+?>           
+     </div>
     </div>
   </nav>
   

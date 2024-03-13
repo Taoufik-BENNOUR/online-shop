@@ -36,7 +36,7 @@ if(isset($_GET['productId'])){
     <li class="list-group-item">Dapibus ac facilisis in</li>
     <li class="list-group-item">
     <form class="d-flex justify-content-end" action="actions/command.php" method="post">
-        <input class="col-3 mx-2" type="number" name="quantity" min='0'>
+        <input class="col-3 mx-2" type="number" name="quantity" min='1' value=1 required>
         <input  type="hidden" name="product_id" value="<?= $product['id']; ?>">
         <button type="submit" class="btn btn-primary" name="command">Command</button>
     </form>  
