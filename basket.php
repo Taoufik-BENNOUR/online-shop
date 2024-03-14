@@ -3,6 +3,7 @@ require_once "./utils/fetchUtils.php";
 session_start();
 $total=0;
 $ttc=0;
+$ordered_items = array();
 if(isset($_SESSION['basket'])){
   $total = $_SESSION['basket'][1];
   $ttc = $total *1.2;
@@ -44,9 +45,6 @@ if(isset($_SESSION['basket'])){
                         class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
                   </div>
                 </div>
-          <?php
-          if(isset($_SESSION['basket'])){
-            ?>
             <?php 
           foreach($ordered_items as $key => $item){
           ?>
@@ -71,12 +69,11 @@ if(isset($_SESSION['basket'])){
                         <div style="width: 80px;">
                           <h5 class="mb-0"><?= $item['total']; ?></h5>
                         </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                        <a href="./actions/removeProduct?id=<?= $key;?>" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
                       </div>
                     </div>
                   </div>
                 </div>
-          <?php }?>
           <?php }?>
               </div>
               <div class="col-lg-5">
