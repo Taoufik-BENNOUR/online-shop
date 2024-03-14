@@ -1,10 +1,13 @@
 <?php
 require_once "./utils/fetchUtils.php";
 session_start();
-$total = $_SESSION['basket'][1];
-$ttc = $total *1.2;
-$ordered_items = $_SESSION['basket'][3];
-
+$total=0;
+$ttc=0;
+if(isset($_SESSION['basket'])){
+  $total = $_SESSION['basket'][1];
+  $ttc = $total *1.2;
+  $ordered_items = $_SESSION['basket'][3];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,14 +37,17 @@ $ordered_items = $_SESSION['basket'][3];
                 <div class="d-flex justify-content-between align-items-center mb-4">
                   <div>
                     <p class="mb-1">Shopping cart</p>
-                    <p class="mb-0">You have <?= count($_SESSION['basket'][3]); ?> items in your cart</p>
+                    <p class="mb-0">You have <?= isset($_SESSION['basket'])? count($_SESSION['basket'][3]) : 0; ?> items in your cart</p>
                   </div>
                   <div>
                     <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
                         class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
                   </div>
                 </div>
-          <?php 
+          <?php
+          if(isset($_SESSION['basket'])){
+            ?>
+            <?php 
           foreach($ordered_items as $key => $item){
           ?>
                           <div class="card mb-3">
@@ -70,6 +76,7 @@ $ordered_items = $_SESSION['basket'][3];
                     </div>
                   </div>
                 </div>
+          <?php }?>
           <?php }?>
               </div>
               <div class="col-lg-5">

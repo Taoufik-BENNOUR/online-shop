@@ -2,7 +2,6 @@
 require_once "pdo.php";
 $stmt=$conn->query("SELECT * FROM categories");
 $categories = $stmt->fetchALL();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,8 +52,13 @@ $categories = $stmt->fetchALL();
          <a href='logout.php'><span>Logout</span></a>
          </div>
         </div>
-        <a href='basket'><i class='fa fa-basket-shopping' style='color:white;'></i></a>
-        ";
+        <a class='topbarIconItems' href='basket'><i class='fa fa-basket-shopping' style='color:white;'></i><span class='topbarIconBadge'>";
+        if (isset($_SESSION['basket']) && is_array($_SESSION['basket'][3])) {
+            echo count($_SESSION['basket'][3]);
+        } else {
+            echo 0;
+        }
+        echo "</span></a>";
       } else {
           echo "<a class='col-1' href='login.php'><button class='btn btn-outline-success'>Login<i class='bi bi-box-arrow-in-right'></i></button></a>";
       }
