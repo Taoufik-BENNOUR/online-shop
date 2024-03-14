@@ -143,12 +143,11 @@ if(isset($_SESSION['basket'])){
                       <p class="mb-2">$ <?= $ttc;?></p>
                     </div>
 
-                    <button type="button" class="btn btn-primary btn-block btn-lg">
-                      <div class="d-flex justify-content-between">
-                        <span>$ <?= $ttc;?></span>
+                    <a href="./actions/validate-command" class="btn btn-primary btn-block btn-lg">
+                      <div class="d-flex justify-content-end">
                         <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                       </div>
-                    </button>
+                    </a>
 
                   </div>
                 </div>

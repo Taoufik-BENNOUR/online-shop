@@ -21,19 +21,18 @@ if(!empty($_POST['search'])){
   <?php
   include "navbar.php";
   ?>
-  <div class="d-flex flex-wrap col-10 m-auto">
+  <div class="d-flex flex-wrap align-items-center col-10 m-auto">
             <?php
         foreach($products as $product){
-         echo '<div class="col-3 mt-3">
-          <div class="card" style="width: 18rem;height: 100%">
+         echo '
+          <div class="card m-3" style="width: 18rem;height: 100%">
               <img src="admin/uploads/'.$product['image'].'" class="card-img-top" height="150" alt="...">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">'.$product['name'].'</h5>
                 <p class="card-text 4">'.$product['description'].'</p>
                 <a href="product.php?productId='.$product['id'].'" class="btn btn-success align-self-start mt-auto">Go somewhere</a>
               </div>
-            </div>
-      </div>';
+            </div>';
 }
 ?>
   </div>
