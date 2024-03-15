@@ -9,8 +9,6 @@ if(isset($_GET['productId'])){
          "product doesnt exist";
     }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +36,11 @@ if(isset($_GET['productId'])){
     <form class="d-flex justify-content-end" action="actions/command.php" method="post">
         <input class="col-3 mx-2" type="number" name="quantity" min='1' value=1 required>
         <input  type="hidden" name="product_id" value="<?= $product['id']; ?>">
-        <button type="submit" class="btn btn-primary" name="command">Command</button>
+        <button type="submit" class="btn btn-primary" name="command"
+         <?php if(isset($_SESSION['state']) && $_SESSION['state']==0){
+          echo "disabled";
+         } 
+         ?>>Command</button>
     </form>  
   </li>
   </ul>

@@ -14,8 +14,9 @@ if(!empty($_POST)){
     $_SESSION["email"] = $user['email'];
     $_SESSION["phone"]= $user['phone'];
     $_SESSION["user_id"]= $user['user_id'];
+    $_SESSION["state"] = $user['state'];
     $_SESSION["isAuth"] = true; 
-    header('location:profile.php');
+    header('location:index.php');
   } else {
     $_SESSION['error_message'] = "Wrong email or password";
     header('Location:'.$_SERVER['PHP_SELF']);

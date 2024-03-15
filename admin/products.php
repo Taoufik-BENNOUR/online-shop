@@ -85,7 +85,7 @@ if(isset($_POST['delete_product'])&&isset($_POST['productId'])){
          <div style="display: inline-block;">
         <form method="post" style="margin: 0; padding: 0;">
             <input type="hidden" value="<?= $product['id']; ?>" name="productId" />
-            <button onclick="return confirmDeletion()" class="btn btn-danger" type="submit" name="delete_product">Delete</button>
+            <button onclick="return confirmDeletion()" class="btn btn-danger bi bi-trash" type="submit" name="delete_product"></button>
         </form>
     </div>
       </td>

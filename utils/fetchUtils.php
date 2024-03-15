@@ -194,7 +194,7 @@ function getStock(){
     return $stocks;
 }
 function updateStock($stock){
-    $conn=connectToDatabase();
+    $conn = connectToDatabase();
     $updateDate = date("y-m-d");
     $sql = "UPDATE stock SET quantity=:quantity,updatedAt=:updatedAt WHERE stock_id=:stock_id";
     $stmt=$conn->prepare($sql);
@@ -203,5 +203,14 @@ function updateStock($stock){
         ':stock_id'=>$stock['stock_id'],
         ':updatedAt'=>$stock['updatedAt']
     ));
+}
+
+function getCommands(){
+    $conn = connectToDatabase();
+    $insertDate = date("y-m-d");
+    $sql = "SELECT * FROM basket,users WHERE basket.user_id = users.user_id";
+    $stmt = $conn->query($sql);
+    $basket = $stmt->fetchAll();
+    return $basket;
 }
 ?>
