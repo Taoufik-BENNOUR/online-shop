@@ -20,7 +20,7 @@ $basket_id=$conn->lastInsertId();
 $items = $_SESSION['basket'][3];
 
 foreach ($items as $item) {
-    $sql_command = "INSERT INTO commands (product_id,basket_id,quantity,total,createdAt)
+    $sql_command = "INSERT INTO orders (product_id,basket_id,quantity,total,createdAt)
 VALUES (:product_id,:basket_id,:quantity,:total,:createdAt)";
 $stmt2 = $conn->prepare($sql_command);
 $stmt2->execute(array(

@@ -205,12 +205,19 @@ function updateStock($stock){
     ));
 }
 
-function getCommands(){
+function getAllBaskets(){
     $conn = connectToDatabase();
     $insertDate = date("y-m-d");
-    $sql = "SELECT * FROM basket,users WHERE basket.user_id = users.user_id";
+    $sql = "SELECT u.firstname,u.lastname,b.state,b.createdAt,b.updatedAt,b.total,b.basket_id FROM basket b,users u WHERE b.user_id = u.user_id";
     $stmt = $conn->query($sql);
     $basket = $stmt->fetchAll();
     return $basket;
+}
+function getOrderDetail(){
+    $conn = connectToDatabase();
+    $sql = "SELECT p.name,o.total,o.basket_id,o.quantity FROM orders o,product p WHERE o.product_id=p.id";
+    $stmt=$conn->query($sql);
+    $orderDetail = $stmt->fetchAll();
+    return  $orderDetail;
 }
 ?>
