@@ -220,4 +220,15 @@ function getOrderDetail(){
     $orderDetail = $stmt->fetchAll();
     return  $orderDetail;
 }
+function updateBasketStatus($basket){
+    $updateDate = date("y-m-d");
+    $conn = connectToDatabase();
+    $sql = "UPDATE basket SET state=:state,updatedAt=:updatedAt WHERE basket_id=:basket_id";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute(array(
+        ":state"=>$basket['order-state'],
+        ":basket_id"=>$basket['basket_id'],
+        ":updatedAt"=>$updateDate
+    ));
+}
 ?>

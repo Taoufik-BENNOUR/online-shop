@@ -3,7 +3,17 @@ require "../utils/fetchUtils.php";
 $baskets = getAllBaskets();
 $orderDetails = getOrderDetail();
 
+function statusClass($status){
+  if($status=="In progress") return "bg-warning";
+  if($status=="Delivered") return "bg-success";
+  if($status=="Canceled") return "bg-danger";
+}
+if(isset($_POST['edit-status']) && isset($_POST['basket_id'])){
+  updateBasketStatus($_POST);
+  header("location:".$_SERVER['PHP_SELF']);
+}
 ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,19 +47,14 @@ $orderDetails = getOrderDetail();
       <th scope="row"><?= $key; ?></th>
       <td><?= $command['firstname']." ".$command['lastname']; ?></td>
       <td><?= $command['total']; ?></td>      
-      <td><?= $command['state']; ?></td>      
+      <td class="badge <?= statusClass($command['state']) ?> mt-2"><?= $command['state']; ?></td>      
       <td><?= $command['createdAt']; ?></td>      
       <td><?= $command['updatedAt']; ?></td>      
       <td>
     <button class="btn btn-secondary bi bi-eye" data-bs-toggle="modal"  data-bs-target="#order-<?=$command['basket_id'] ; ?>"
             ></button>
-         <div style="display: inline-block;">
-        <form method="post" style="margin: 0; padding: 0;">
-            <input type="hidden" value="<?= $command['basket_id']; ?>" name="basket_id" />
-            <button class="btn btn-danger bi bi-trash" type="submit" name="delete"  
+    <button class="btn btn-warning bi bi-pencil-square" data-bs-toggle="modal"  data-bs-target="#edit-order-<?=$command['basket_id'] ; ?>"
             ></button>
-        </form>
-    </div>
       </td>
       <td></td>
     </tr>
@@ -65,7 +70,7 @@ $orderDetails = getOrderDetail();
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Order Detail</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -101,7 +106,33 @@ $orderDetails = getOrderDetail();
 </div>
    <?php };
    ?>
-
+<?php 
+   foreach ($baskets as $basket) {
+    ?>
+     <div class="modal fade" id="edit-order-<?= $basket['basket_id'] ;  ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Order Detail</h5>
+        <span class="badge <?= statusClass($basket['state']); ?> mx-5"><?= $basket['state']; ?></span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST">
+        <select class="form-select" name="order-state" id="order-state">
+                <option style="text-white height:55px" >In progress</option>
+                <option style="text-white height:25px" >Canceled</option>
+                <option style="text-white height:25px" >Delivered</option>
+        </select>
+        <input type="hidden" value="<?= $basket['basket_id'] ?>" name="basket_id">
+        <button class="btn btn-primary mt-3" type="submit" name="edit-status">SAVE</button>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+   <?php };
+   ?>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
