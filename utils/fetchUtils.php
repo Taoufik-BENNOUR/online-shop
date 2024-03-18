@@ -240,4 +240,39 @@ function getBasketByStatus($baskets,$status){
     }
     return $basketStatus;
 }
+function updateAdminProfile($data){
+    $conn = connectToDatabase();
+    $sql = "UPDATE admin SET firstname=:firstname, lastname=:lastname, email=:email";
+    if (!empty($data['password'])) {
+        $sql .= ", password=:password";
+    }
+    $sql .= " WHERE admin_id=:admin_id";
+
+    $stmt = $conn->prepare($sql);
+
+    $params = array(
+        ":firstname" => $data['firstname'],
+        ":lastname" => $data['lastname'],
+        ":email" => $data['email'],
+        ":admin_id" => $data['admin_id']
+    );
+    if (!empty($data['password'])) {
+        $params[':password'] = md5($data['password']);
+    }
+    $stmt->execute($params);
+
+}
+
+function getAdminProfile($id){
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM admin WHERE admin_id=:admin_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array(
+        ":admin_id"=>$id
+    ));
+    $adminProfile = $stmt->fetch();
+
+    return $adminProfile;
+}
+
 ?>

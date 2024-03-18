@@ -1,9 +1,14 @@
 <?php
+include "../utils/fetchUtils.php";
 session_start();
 if(!isset($_SESSION['isAdminAuth'])){
     header("location:login.php");
 }
-
+if(isset($_POST['save'])){
+    updateAdminProfile($_POST);
+    header("location:login.php");
+}
+$user = getAdminProfile($_SESSION['admin_id']);
 ?>
 <html lang="en">
 <head>
@@ -21,8 +26,8 @@ if(!isset($_SESSION['isAdminAuth'])){
             <div class="d-flex">
                 <div class="col-md-5 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                    <span class="font-weight-bold"><?= $_SESSION['firstname']; ?></span>
-                    <span class="text-white-50"><?= $_SESSION['email']; ?></span>
+                    <span class="font-weight-bold"><?= $user['firstname']; ?></span>
+                    <span class="text-white-50"><?=  $user['email']; ?></span>
                     <a class="btn btn-danger" href="../logout.php">Logout</a>
                 </div>
                 </div>
@@ -31,15 +36,18 @@ if(!isset($_SESSION['isAdminAuth'])){
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Profile Settings</h4>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-6"><label class="labels">Firstname</label><input type="text" class="form-control" placeholder="first name" value="<?= $_SESSION['firstname']; ?>"></div>
-                            <div class="col-md-6"><label class="labels">Lastname</label><input type="text" class="form-control" value=<?= $_SESSION['lastname']; ?> placeholder="last name"></div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12"><label class="labels">Email Adress</label><input type="email" class="form-control" placeholder="enter email" value=<?= $_SESSION['email']; ?>></div>
-                            <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" placeholder="password" value=""></div>
-                        </div>
-                        <div class="mt-5 text-center"><button class="btn btn-danger profile-button" type="button">Save Profile</button></div>
+                        <form action="" method="POST">
+                            <div class="row mt-2">
+                                <div class="col-md-6"><label class="labels">Firstname</label><input type="text" class="form-control" placeholder="first name" name="firstname" value="<?= $user['firstname']; ?>"></div>
+                                <div class="col-md-6"><label class="labels">Lastname</label><input type="text" class="form-control" name="lastname" value=<?= $user['lastname']; ?> placeholder="last name"></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12"><label class="labels">Email Adress</label><input type="email" class="form-control" placeholder="enter email" name="email" value=<?= $user['email']; ?>></div>
+                                <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" placeholder="password" name="password"></div>
+                            </div>
+                            <input type="hidden" name="admin_id" value="<?=  $user['admin_id'] ?>">
+                            <div class="mt-5 text-center"><button class="btn btn-danger profile-button" type="submit" name="save">Save Profile</button></div>
+                        </form>
                     </div>
                 </div>
             </div>
