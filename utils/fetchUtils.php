@@ -231,4 +231,13 @@ function updateBasketStatus($basket){
         ":updatedAt"=>$updateDate
     ));
 }
+function getBasketByStatus($baskets,$status){
+    $basketStatus = array();
+    foreach($baskets as $basket){
+        if($basket['state'] == $status){
+            array_push($basketStatus,$basket);
+        }
+    }
+    return $basketStatus;
+}
 ?>

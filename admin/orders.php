@@ -12,6 +12,13 @@ if(isset($_POST['edit-status']) && isset($_POST['basket_id'])){
   updateBasketStatus($_POST);
   header("location:".$_SERVER['PHP_SELF']);
 }
+if(isset($_POST['status'])){
+  if($_POST['status'] == "All"){
+    $baskets = getAllBaskets();
+  }else{
+    $baskets = getBasketByStatus($baskets,$_POST['status']);
+  }
+}
 ?>
 
 <html lang="en">
@@ -27,6 +34,12 @@ if(isset($_POST['edit-status']) && isset($_POST['basket_id'])){
             <?php include "sidebar.php"; ?>
         <div class="col">
             <h1 class="text-center bg-dark text-danger py-2">ORDERS</h1>
+        <form action="" method="POST" class="mx-2"> 
+          <input class="btn btn-dark" type="submit" name="status" value="All"/>
+          <input class="btn btn-success" type="submit" name="status" value="Delivered"/>
+          <input class="btn btn-warning" type="submit" name="status" value="In progress"/>
+          <input class="btn btn-danger" type="submit" name="status" value="Canceled"/>
+        </form>
             <table class="table">
                 <thead>
                     <tr>
