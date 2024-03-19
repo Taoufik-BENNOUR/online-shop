@@ -275,4 +275,53 @@ function getAdminProfile($id){
     return $adminProfile;
 }
 
+function getData(){
+    $conn = connectToDatabase();
+    $data = array();
+
+    $sql = "SELECT COUNT(*)FROM product";
+    $stmt=$conn->query($sql);
+    $productCount = $stmt->fetch();
+
+    $sql2 = "SELECT COUNT(*) FROM categories";
+    $stmt=$conn->query($sql2);
+    $categoryCount = $stmt->fetch();
+
+    $sql3 = "SELECT COUNT(*) FROM users";
+    $stmt=$conn->query($sql3);
+    $usersCount = $stmt->fetch();
+
+    $sql4 = "SELECT COUNT(*) FROM basket";
+    $stmt=$conn->query($sql4);
+    $basketsCount = $stmt->fetch();
+
+    $sql5 = "SELECT COUNT(*) FROM orders";
+    $stmt=$conn->query($sql5);
+    $ordersCount = $stmt->fetch();
+
+    $data[] = array(
+        "count" => $productCount[0],
+        "name" => "Product"
+    );
+    $data[] = array(
+        "count" => $categoryCount[0],
+        "name" => "Category"
+    );
+    $data[] = array(
+        "count" => $usersCount[0],
+        "name" => "Users"
+    );
+
+    $data[] = array(
+        "count" => $basketsCount[0],
+        "name" => "Baskets"
+    );
+
+    $data[] = array(
+        "count" => $ordersCount[0],
+        "name" => "Orders"
+    );
+
+    return $data;
+}
 ?>

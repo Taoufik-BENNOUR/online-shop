@@ -34,6 +34,10 @@
                         <a href="orders.php" class="nav-link px-0 align-middle text-white <?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' ? 'activePage' : ''; ?>">
                             <i class="bi bi-cart"></i> <span class="ms-1 d-none d-sm-inline">Orders</span> </a>
                     </li>
+                    <li>
+                        <a href="stats.php" class="nav-link px-0 align-middle text-white <?php echo basename($_SERVER['PHP_SELF']) == 'stats.php' ? 'activePage' : ''; ?>">
+                            <i class="bi bi-bar-chart"></i> <span class="ms-1 d-none d-sm-inline">Stats</span> </a>
+                    </li>
                 </ul>
          </div>
 </div>
